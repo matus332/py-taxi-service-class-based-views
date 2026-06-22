@@ -3,19 +3,23 @@
 {% block content %}
   <h1>Drivers List</h1>
 
-  <p><b>License number:</b> {{ driver.license_number }}</p>
+  {% if driver_list %}
+    <table class="table">
+      <tr>
+        <th>Username</th>
+        <th>License number</th>
+      </tr>
 
-  <h2>Cars</h2>
-
-  {% if driver.cars.all %}
-    <ul>
-      {% for car in driver.cars.all %}
-        <li>
-          {{ car.model }} — {{ car.manufacturer.name }}
-        </li>
+      {% for driver in driver_list %}
+        <tr>
+          <td>
+            <a href="{{ driver.get_absolute_url }}">
+              {{ driver.username }}
+            </a>
+          </td>
+          <td>{{ driver.license_number }}</td>
+        </tr>
       {% endfor %}
-    </ul>
-  {% else %}
-    <p>No cars</p>
+    </table>
   {% endif %}
 {% endblock %}
